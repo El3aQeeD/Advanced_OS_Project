@@ -2,13 +2,6 @@ import tkinter as tk
 
 from optimal_algo import optimal_page_replacement
 
-# Function to simulate the algorithm and return page hit and page faults
-def simulate_algorithm(numbers, num_frames):
-    # Implement the algorithm simulation logic here
-    # For demonstration purposes, let's just return the sum of numbers as page hit and page faults
-    page_hit = sum(numbers)
-    page_faults = sum(numbers) * num_frames  # Just a placeholder value
-    return page_hit, page_faults
 
 # Function to open screens for each algorithm
 def open_algorithm_screen(algorithm):
