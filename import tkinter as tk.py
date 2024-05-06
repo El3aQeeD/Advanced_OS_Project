@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from optimal_algo import optimal_page_replacement
+from Clook_Algorithm import CLOOK
 
 
 # Function to open screens for each algorithm
@@ -64,10 +65,69 @@ def open_algorithm_screen(algorithm):
         split_button = tk.Button(algorithm_frame, text="Get result", command=split_input)
         split_button.pack(pady=5)
 
-    elif algorithm == "Algorithm 2":
-        # Display content for Algorithm 2
-        algorithm_label = tk.Label(algorithm_frame, text="Algorithm 2 Screen")
+    elif algorithm == "C-look Algorithm":
+        # Display content for C-look Algorithm
+        algorithm_label = tk.Label(algorithm_frame, text="Enter numbers separated by spaces:")
         algorithm_label.pack()
+
+        # Entry widget to take input from the user for the list
+        entry = tk.Entry(algorithm_frame)
+        entry.pack(pady=5)
+
+        # Label for head position
+        head_label = tk.Label(algorithm_frame, text="Enter head position:")
+        head_label.pack()
+
+        # Entry widget for head position
+        head_entry = tk.Entry(algorithm_frame)
+        head_entry.pack(pady=5)
+
+        # Label for direction
+        direction_label = tk.Label(algorithm_frame, text="Enter direction (left or right):")
+        direction_label.pack()
+
+        # Entry widget for direction
+        direction_entry = tk.Entry(algorithm_frame)
+        direction_entry.pack(pady=5)
+
+        error_label = tk.Label(algorithm_frame, text="", fg="red")  # Label to display error messages
+        error_label.pack()
+
+        # Label to display total head movement
+        total_movement_label = tk.Label(algorithm_frame, text="Total Head Movement: ")
+        total_movement_label.pack()
+
+        # Label to display order of disks served
+        order_of_disks_label = tk.Label(algorithm_frame, text="Order of Disks Served: ")
+        order_of_disks_label.pack()
+
+        # Function to split input and simulate the algorithm
+        def split_input():
+            input_text = entry.get()
+            head_pos = head_entry.get()
+            direction = direction_entry.get().lower()
+
+            if ' ' not in input_text:
+                error_label.config(text="Values must be separated by spaces.")
+                return
+            try:
+                numbers = [int(num) for num in input_text.split()]  # Convert each element to integer
+                head_pos = int(head_pos)
+                if direction not in ['left', 'right']:
+                    error_label.config(text="Direction must be 'left' or 'right'.")
+                    return
+                error_label.config(text="")  # Clear error message if no error
+                # Call function to simulate C-look Algorithm
+                total_movement, order_of_disks_served = CLOOK(numbers, head_pos, direction)
+                # Update labels with results
+                total_movement_label.config(text="Total Head Movement: " + str(total_movement))
+                order_of_disks_label.config(text="Order of Disks Served: " + ", ".join(map(str, order_of_disks_served)))
+            except ValueError:
+                error_label.config(text="Invalid input. Please enter integers for numbers and head position.")
+
+        # Button to trigger splitting the input and simulating the algorithm
+        split_button = tk.Button(algorithm_frame, text="Get result", command=split_input)
+        split_button.pack(pady=5)
     elif algorithm == "Algorithm 3":
         # Display content for Algorithm 3
         algorithm_label = tk.Label(algorithm_frame, text="Algorithm 3 Screen")
@@ -84,7 +144,7 @@ def create_main_screen():
     main_frame.pack()
 
     # Add buttons for each algorithm
-    algorithms = ["Optimal Algorithm", "Algorithm 2", "Algorithm 3", "Algorithm 4"]
+    algorithms = ["Optimal Algorithm", "C-look Algorithm", "Algorithm 3", "Algorithm 4"]
     for algorithm in algorithms:
         button = tk.Button(main_frame, text=algorithm, command=lambda alg=algorithm: open_algorithm_screen(alg))
         button.pack(pady=10)
