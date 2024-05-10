@@ -1,11 +1,11 @@
-def second_chance(page_frames, pages):
-    digit_count = sum(char.isdigit() for char in pages)
+def second_chance(pages, page_frames):
+    digit_count = len(pages)
     page_faults = 0
     clock_hand = 0
     frames = [-1] * page_frames  # Initialize frames as empty (-1 represents an empty frame)
     frame_referenced = [False] * page_frames
     
-    for page_num in pages.split():
+    for page_num in pages:
         page_num = int(page_num)
         if page_num in frames:
             # Page already in frames, mark as referenced
@@ -25,4 +25,4 @@ def second_chance(page_frames, pages):
                     frame_referenced[clock_hand] = False
                     clock_hand = (clock_hand + 1) % page_frames
 
-    return page_faults,digit_count-page_faults
+    return digit_count - page_faults, page_faults
