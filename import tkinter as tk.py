@@ -192,11 +192,78 @@ def open_algorithm_screen(algorithm):
         back_button = tk.Button(algorithm_frame, text="Back", command=lambda: back_to_main(algorithm_frame))
         back_button.pack(pady=5)
         
-    elif algorithm == "Algorithm 4":
-        # Display content for Algorithm 4
-        algorithm_label = tk.Label(algorithm_frame, text="Algorithm 4 Screen")
+    elif algorithm =="C-Scan Algorithm":
+        # Display content for C-look Algorithm
+        algorithm_label = tk.Label(algorithm_frame, text="Enter numbers separated by spaces:")
         algorithm_label.pack()
-        
+
+        # Entry widget to take input from the user for the list
+        entry = tk.Entry(algorithm_frame)
+        entry.pack(pady=5)
+
+        # Label for head position
+        head_label = tk.Label(algorithm_frame, text="Enter head position:")
+        head_label.pack()
+
+        # Entry widget for head position
+        head_entry = tk.Entry(algorithm_frame)
+        head_entry.pack(pady=5)
+
+        # Label for direction
+        direction_label = tk.Label(algorithm_frame, text="Enter direction (left or right):")
+        direction_label.pack()
+
+        # Entry widget for direction
+        direction_entry = tk.Entry(algorithm_frame)
+        direction_entry.pack(pady=5)
+        # Label for head position
+        number_of_cylinders_label = tk.Label(algorithm_frame, text="Enter number of cylinders:")
+        number_of_cylinders_label.pack()
+
+        # Entry widget for head position
+        number_of_cylinders_entry = tk.Entry(algorithm_frame)
+        number_of_cylinders_entry.pack(pady=5)
+
+        error_label = tk.Label(algorithm_frame, text="", fg="red")  # Label to display error messages
+        error_label.pack()
+
+        # Label to display total head movement
+        total_movement_label = tk.Label(algorithm_frame, text="Total Head Movement: ")
+        total_movement_label.pack()
+
+        # Label to display order of disks served
+        order_of_disks_label = tk.Label(algorithm_frame, text="Order of Disks Served: ")
+        order_of_disks_label.pack()
+
+        # Function to split input and simulate the algorithm
+        def split_input():
+            input_text = entry.get()
+            head_pos = head_entry.get()
+            direction = direction_entry.get().lower()
+            number_of_cylinders=number_of_cylinders_entry.get()
+            if ' ' not in input_text:
+                error_label.config(text="Values must be separated by spaces.")
+                return
+            try:
+                numbers = [int(num) for num in input_text.split()]  # Convert each element to integer
+                head_pos = int(head_pos)
+                if direction not in ['left', 'right']:
+                    error_label.config(text="Direction must be 'left' or 'right'.")
+                    return
+                error_label.config(text="")  # Clear error message if no error
+
+                # Call function to simulate C-look Algorithm
+                total_movement, order_of_disks_served = C_Scan(numbers, head_pos, direction,number_of_cylinders)
+                # Update labels with results
+                total_movement_label.config(text="Total Head Movement: " + str(total_movement))
+                order_of_disks_label.config(text="Order of Disks Served: " + ", ".join(map(str, order_of_disks_served)))
+            except ValueError:
+                error_label.config(text="Invalid input. Please enter integers for numbers and head position.")
+
+        # Button to trigger splitting the input and simulating the algorithm
+        split_button = tk.Button(algorithm_frame, text="Get result", command=split_input)
+        split_button.pack(pady=5)
+
         # Button to go back to the main screen
         back_button = tk.Button(algorithm_frame, text="Back", command=lambda: back_to_main(algorithm_frame))
         back_button.pack(pady=5)
