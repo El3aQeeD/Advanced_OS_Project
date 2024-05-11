@@ -3,6 +3,7 @@ import tkinter as tk
 from optimal_algo import optimal_page_replacement
 from Clook_Algorithm import CLOOK
 from secondt import second_chance
+from C_Scan_Algorithm import C_Scan
 
 # Function to open screens for each algorithm
 def open_algorithm_screen(algorithm):
@@ -275,7 +276,7 @@ def create_main_screen():
     main_frame.pack()
 
     # Add buttons for each algorithm
-    algorithms = ["Optimal Algorithm", "C-look Algorithm", "Second Chance Algorithm", "Algorithm 4"]
+    algorithms = ["Optimal Algorithm", "C-look Algorithm", "Second Chance Algorithm", "C-Scan Algorithm"]
     for algorithm in algorithms:
         button = tk.Button(main_frame, text=algorithm, command=lambda alg=algorithm: open_algorithm_screen(alg))
         button.pack(pady=10)
