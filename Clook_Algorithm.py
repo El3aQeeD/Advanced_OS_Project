@@ -44,6 +44,7 @@ def CLOOK(arr, head, direction):
     plt.xlabel("Track Number")
     plt.ylabel("Order Served")
     plt.title("Order of Disks Served by C-LOOK Algorithm")
+    plt.gca().invert_yaxis()
     plt.show()
 
     return total_head_movement , order_of_disks_served
