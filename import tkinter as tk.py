@@ -43,7 +43,6 @@ def open_algorithm_screen(algorithm):
         page_faults_label = tk.Label(algorithm_frame, text="Page Faults: ")
         page_faults_label.pack()
 
-        # Function to split input into a list of integers and simulate the algorithm
         def split_input():
             input_text = entry.get()
             num_frames = num_frames_entry.get()
@@ -51,12 +50,11 @@ def open_algorithm_screen(algorithm):
                 error_label.config(text="Values must be separated by spaces.")
                 return
             try:
-                numbers = [int(num) for num in input_text.split()]  # Convert each element to integer
+                numbers = [int(num) for num in input_text.split()] 
                 num_frames = int(num_frames)
-                error_label.config(text="")  # Clear error message if no error
-                # Call function to simulate algorithm
+                error_label.config(text="")  
+                
                 page_hit, page_faults = optimal_page_replacement(numbers, num_frames)
-                # Update labels with results
                 page_hit_label.config(text="Page Hit: " + str(page_hit))
                 page_faults_label.config(text="Page Faults: " + str(page_faults))
             except ValueError:
