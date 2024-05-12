@@ -16,7 +16,7 @@ def C_Scan(arr, head, direction, cylinders_number):
         if arr[i] > head:
             right.append(arr[i])
 
-    if direction == 'left':
+    if direction == 'right':
         
         right.append(int(cylinders_number)-1)
         left.append(0)
@@ -33,10 +33,14 @@ def C_Scan(arr, head, direction, cylinders_number):
     order_of_disks_served.append(head)
     for track in tracks:
         cur_track = track
-        order_of_disks_served.append(cur_track)
         distance = abs(cur_track - head)
+        # if distance != int(cylinders_number)-1:
+        print("distance",distance)
         total_head_movement += distance
         head = cur_track
+        order_of_disks_served.append(cur_track)
+        
+        
     
     #Elgraphhh
     tracks = order_of_disks_served
@@ -49,6 +53,7 @@ def C_Scan(arr, head, direction, cylinders_number):
     plt.xlabel("Track Number")
     plt.ylabel("Order Served")
     plt.title("Order of Disks Served by C-SCAN Algorithm")
+    plt.gca().invert_yaxis()
     plt.show()
 
     return total_head_movement , order_of_disks_served
